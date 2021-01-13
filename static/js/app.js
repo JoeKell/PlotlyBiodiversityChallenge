@@ -1,2 +1,1 @@
-const path= "data/samples.json"
-$.getJSON(path,json=>console.log(json));
+d3.json("data/samples.json").then((incomingData) => console.log(incomingData));
