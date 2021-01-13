@@ -40,7 +40,7 @@ function optionChanged(value) {
 
         console.log("Change 3");
 
-        CreateHBar(sample[0].otu_ids.slice(9), sample[0].sample_values.slice(9));
+        CreateHBar(sample[0].sample_values.slice(9),sample[0].otu_ids.slice(9));
     });
 
 
