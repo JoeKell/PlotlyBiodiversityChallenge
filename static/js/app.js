@@ -12,11 +12,12 @@ d3.json("./data/samples.json").then(function(incomingData) {
         optionChanged(d3.select("#selDataset").property("value"));
 });
 
-function CreateHBar(x,y) {
+function CreateHBar(x,y,text) {
     var data = [{
         type: 'bar',
         x: x,
         y: y,
+        text: text,
         orientation: 'h'
     }];
 
@@ -38,9 +39,9 @@ function optionChanged(value) {
         var sample = incomingData.samples.filter(data => data.id ==value);
         console.log(sample);
 
-        console.log("Change 3");
-
-        CreateHBar(sample[0].sample_values.slice(9),sample[0].otu_ids.slice(9));
+        console.log("Change 4");
+        console.log(sample[0].sample_values.slice(0,10))
+        CreateHBar(sample[0].sample_values.slice(0,10),sample[0].otu_ids.slice(0,10).map(a=>"OTU"+ a),sample[0].otu_labels.slice(0,10));
     });
 
 
