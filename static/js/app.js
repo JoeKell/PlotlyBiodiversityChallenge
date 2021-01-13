@@ -10,7 +10,8 @@ d3.json("./data/samples.json").then(function(incomingData) {
         .attr("value",d=>d);
 
         optionChanged(d3.select("#selDataset").select("option").select("value"));
-
+        console.log(d3.select("#selDataset"));
+        console.log(d3.select("#selDataset").select("option"));
 });
 
 function optionChanged(value) {
