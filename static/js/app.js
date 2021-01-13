@@ -34,9 +34,12 @@ function optionChanged(value) {
     d3.json("./data/samples.json").then(function(incomingData) {
         var metadata = incomingData.metadata.filter(data => data.id ==value);
         console.log(metadata);
+        
         var sample = incomingData.samples.filter(data => data.id ==value);
         console.log(sample);
+
+        CreateHBar(sample.otu_ids.slice(0,10),sample.sample_values.slice(0,10));
     });
 
-    CreateHBar(sample.otu_ids.slice(0,10),sample.sample_values.slice(0,10));
+
 }
