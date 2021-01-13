@@ -36,7 +36,7 @@ function optionChanged(value) {
         console.log(metadata);
 
         var sample = incomingData.samples.filter(data => data.id ==value);
-        console.log(sample.otu_ids);
+        console.log(sample["otu_ids"]);
 
         CreateHBar(sample.otu_ids.slice(0,10), sample.sample_values.slice(0,10));
     });
