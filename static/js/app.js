@@ -8,9 +8,9 @@ d3.json("./data/samples.json").then(function(incomingData) {
         .append("option")
         .text(d=>d)
         .attr("value",d=>d);
-
-        optionChanged(d3.select("#selDataset").property("value"));
 });
+
+// optionChanged(d3.select("#selDataset").property("value"));
 
 function CreateHBar(x,y,text) {
     var data = [{
@@ -55,9 +55,10 @@ function CreateBubble(x,y,text) {
 
 function Meta(data) {
     var div = d3.select("#sample-metadata");
+    div.html("")
     var list = div.append("ul");
     Object.entries(data).forEach(([key, value]) => {
-        list.append("li").text(key + " " + value);
+        list.append("li").text(key + ": " + value);
      });
 }
 
@@ -71,7 +72,7 @@ function optionChanged(value) {
         var sample = incomingData.samples.filter(data => data.id ==value);
         console.log(sample);
 
-        console.log("Change 7");
+        console.log("Change 8");
 
         CreateHBar(sample[0].sample_values.slice(0,10).reverse(),sample[0].otu_ids.slice(0,10).reverse().map(a=>"OTU "+ a),sample[0].otu_labels.slice(0,10).reverse());
         CreateBubble(sample[0].otu_ids,sample[0].sample_values,sample[0].otu_labels);
