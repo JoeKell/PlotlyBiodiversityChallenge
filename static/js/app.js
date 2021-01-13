@@ -1,7 +1,7 @@
 var data = d3.json("./data/samples.json").then(function(incomingData) {
     console.log(incomingData.names);
-    console.log(samples[0].id);
-    console.log(samples[1].id);
+    console.log(incomingData.samples[0].id);
+    console.log(incomingData.samples[1].id);
     
     //Populate the dropdown
     d3.select("#selDataset")
