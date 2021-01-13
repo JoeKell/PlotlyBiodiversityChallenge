@@ -20,5 +20,5 @@ function optionChanged(value) {
         var sample = incomingData.samples.filter(data => data.id ==value);
         console.log(sample);
 
-    }
+    });
 }
