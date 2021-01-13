@@ -37,12 +37,10 @@ function optionChanged(value) {
 
         var sample = incomingData.samples.filter(data => data.id ==value);
         console.log(sample);
-        console.log(sample[0].sample_values);
-        console.log(sample[0].otu_ids);
 
-        console.log("Change 2");
+        console.log("Change 3");
 
-        CreateHBar(sample.otu_ids.slice(0,10), sample.sample_values.slice(0,10));
+        CreateHBar(sample[0].otu_ids.slice(9), sample[0].sample_values.slice(9));
     });
 
 
