@@ -36,12 +36,17 @@ function CreateBubble(x,y,text) {
         mode: 'markers',
         marker: {
           size: y,
-          color: x
+          color: x.map(value=>500+value)
         }
     }];
 
     var layout = {
-        title: "Top 10 OTUs"
+        title: "OTU Values",
+        xaxis: {
+            title: {
+              text: 'OTU ID',
+            }
+        }
       };
 
     Plotly.newPlot('bubble', data, layout);
@@ -58,7 +63,7 @@ function optionChanged(value) {
         var sample = incomingData.samples.filter(data => data.id ==value);
         console.log(sample);
 
-        console.log("Change 5");
+        console.log("Change 6");
 
         CreateHBar(sample[0].sample_values.slice(0,10).reverse(),sample[0].otu_ids.slice(0,10).reverse().map(a=>"OTU "+ a),sample[0].otu_labels.slice(0,10).reverse());
         CreateBubble(sample[0].otu_ids,sample[0].sample_values,sample[0].otu_labels);
