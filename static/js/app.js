@@ -9,7 +9,7 @@ d3.json("./data/samples.json").then(function(incomingData) {
         .text(d=>d)
         .attr("value",d=>d);
 
-        optionChanged(d3.select("#selDataset").select("value"));
+        optionChanged(d3.select("#selDataset").select("option").select("value"));
 
 });
 
