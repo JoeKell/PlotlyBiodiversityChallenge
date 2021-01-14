@@ -1,3 +1,6 @@
+// This makes a call to the json data and uses it to populate the dropdown. 
+// This only needs to occur once, since the data does not update live.
+// Then once the dropdown is filled with the initial value, optionChanged is called so that everything populates.
 d3.json("./data/samples.json").then(function(incomingData) {
     
     //Populate the dropdown
@@ -12,6 +15,8 @@ d3.json("./data/samples.json").then(function(incomingData) {
     optionChanged(d3.select("#selDataset").property("value"));
 });
 
+// This function is used in optionChanged which feeds it the top 10 OTUs and the labels.
+// From there a bar chart is created.
 function CreateHBar(x,y,text) {
     var data = [{
         type: 'bar',
@@ -28,6 +33,8 @@ function CreateHBar(x,y,text) {
     Plotly.newPlot('bar', data, layout);
 }
 
+// This function is used in optionChanged which feeds it all 10 OTUs and the labels.
+// From there a bubble chart is created.
 function CreateBubble(x,y,text) {
     var data = [{
         x: x,
@@ -36,10 +43,9 @@ function CreateBubble(x,y,text) {
         mode: 'markers',
         marker: {
           size: y,
-          color: x.map(value=>5000+value)
+          color: x.map(value=>value)
         }
     }];
-
     var layout = {
         title: "OTU Values",
         xaxis: {
@@ -47,21 +53,12 @@ function CreateBubble(x,y,text) {
               text: 'OTU ID',
             }
         }
-      };
-
+    };
     Plotly.newPlot('bubble', data, layout);
 }
 
-
-function Meta(data) {
-    var div = d3.select("#sample-metadata");
-    div.html("")
-    var list = div.append("ul");
-    Object.entries(data).forEach(([key, value]) => {
-        list.append("li").text(key + ": " + value);
-     });
-}
-
+// This function is used in optionChanged which feeds it the number of weekly belly button washes.
+// From there a gauge chart is created.
 function CreateGauge(num) {
     
     var data = [
@@ -75,26 +72,34 @@ function CreateGauge(num) {
             axis: { range: [null, 10]},
             bar: { color: "#000000" },
             steps: [
-                { range: [0, 1], color: "#FFEAE5" },
-                { range: [1, 2], color: "#FFC4B7" },
-                { range: [2, 3], color: "#FFAE9B" },
-                { range: [3, 4], color: "#FE9A83" },
-                { range: [4, 5], color: "#FF8E75" },
-                { range: [5, 6], color: "#FF8166" },
-                { range: [6, 7], color: "#FF7456" },
-                { range: [7, 8], color: "#FF6C4D" },
-                { range: [8, 9], color: "#FF5E3C" },
-                { range: [9, 10], color: "#FF5733" },
+                { range: [0, 1], color: "#FF5733" },
+                { range: [1, 2], color: "#FF5E3C" },
+                { range: [2, 3], color: "#FF6C4D" },
+                { range: [3, 4], color: "#FF7456" },
+                { range: [4, 5], color: "#FF8166" },
+                { range: [5, 6], color: "#FF8E75" },
+                { range: [6, 7], color: "#FE9A83" },
+                { range: [7, 8], color: "#FFAE9B" },
+                { range: [8, 9], color: "#FFC4B7" },
+                { range: [9, 10], color: "#FFEAE5" },
             ],
         }
-    }
-    ];
-
+    }];
     Plotly.newPlot('gauge', data);
-
 }
 
+// This function is used in optionChanged which feeds it the metadata.
+// The existing unordered list is cleared and a new one takes the place.
+function Meta(data) {
+    var div = d3.select("#sample-metadata");
+    div.html("")
+    var list = div.append("ul");
+    Object.entries(data).forEach(([key, value]) => {
+        list.append("li").text(key + ": " + value);
+     });
+}
 
+// This 'master function' loads in the json data and executes each function so all charts are populated.
 function optionChanged(value) {
     d3.json("./data/samples.json").then(function(incomingData) {
         var metadata = incomingData.metadata.filter(data => data.id ==value);
@@ -102,8 +107,6 @@ function optionChanged(value) {
 
         var sample = incomingData.samples.filter(data => data.id ==value);
         console.log(sample);
-
-        console.log("Change 8");
 
         CreateHBar(sample[0].sample_values.slice(0,10).reverse(),sample[0].otu_ids.slice(0,10).reverse().map(a=>"OTU "+ a),sample[0].otu_labels.slice(0,10).reverse());
         CreateBubble(sample[0].otu_ids,sample[0].sample_values,sample[0].otu_labels);
