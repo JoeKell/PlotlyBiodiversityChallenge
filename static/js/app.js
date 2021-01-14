@@ -103,7 +103,7 @@ function optionChanged(value) {
         CreateHBar(sample[0].sample_values.slice(0,10).reverse(),sample[0].otu_ids.slice(0,10).reverse().map(a=>"OTU "+ a),sample[0].otu_labels.slice(0,10).reverse());
         CreateBubble(sample[0].otu_ids,sample[0].sample_values,sample[0].otu_labels);
         Meta(metadata[0]);
-        CreateGauge(metadata[0]);
+        CreateGauge(metadata[0].wfreq);
     });
 
 
