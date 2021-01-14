@@ -72,15 +72,20 @@ function CreateGauge(num) {
         type: "indicator",
         mode: "gauge+number",
         gauge: {
-        axis: { range: [null, 10]},
-        bar: { color: "#768976" },
-        steps: [
-            { range: [0, 2], color: "#002700" },
-            { range: [2, 4], color: "#003b00" },
-            { range: [4, 6], color: "#004e00" },
-            { range: [6, 8], color: "#006200" },
-            { range: [8, 10], color: "#007600" },
-        ],
+            axis: { range: [null, 10]},
+            bar: { color: "#000000" },
+            steps: [
+                { range: [0, 1], color: "#FFEAE5" },
+                { range: [1, 2], color: "#FFC4B7" },
+                { range: [2, 3], color: "#FFAE9B" },
+                { range: [3, 4], color: "#FE9A83" },
+                { range: [4, 5], color: "#FF8E75" },
+                { range: [5, 6], color: "#FF8166" },
+                { range: [6, 7], color: "#FF7456" },
+                { range: [7, 8], color: "#FF6C4D" },
+                { range: [8, 9], color: "#FF5E3C" },
+                { range: [9, 10], color: "#FF5733" },
+            ],
         }
     }
     ];
