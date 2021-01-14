@@ -8,9 +8,9 @@ d3.json("./data/samples.json").then(function(incomingData) {
         .append("option")
         .text(d=>d)
         .attr("value",d=>d);
-});
 
-// optionChanged(d3.select("#selDataset").property("value"));
+    optionChanged(d3.select("#selDataset").property("value"));
+});
 
 function CreateHBar(x,y,text) {
     var data = [{
@@ -36,7 +36,7 @@ function CreateBubble(x,y,text) {
         mode: 'markers',
         marker: {
           size: y,
-          color: x.map(value=>500+value)
+          color: x.map(value=>5000+value)
         }
     }];
 
@@ -62,6 +62,32 @@ function Meta(data) {
      });
 }
 
+function CreateGauge(num) {
+    
+    var data = [
+    {
+        domain: { x: [0, 1], y: [0, 1] },
+        value: num,
+        title: "Weekly Belly Button Washing Frequency",
+        type: "indicator",
+        mode: "gauge+number",
+        gauge: {
+        axis: { range: [null, 10]},
+        bar: { color: "#768976" },
+        steps: [
+            { range: [0, 2], color: "#002700" },
+            { range: [2, 4], color: "#003b00" },
+            { range: [4, 6], color: "#004e00" },
+            { range: [6, 8], color: "#006200" },
+            { range: [8, 10], color: "#007600" },
+        ],
+        }
+    }
+    ];
+
+    Plotly.newPlot('gauge', data);
+
+}
 
 
 function optionChanged(value) {
@@ -77,6 +103,7 @@ function optionChanged(value) {
         CreateHBar(sample[0].sample_values.slice(0,10).reverse(),sample[0].otu_ids.slice(0,10).reverse().map(a=>"OTU "+ a),sample[0].otu_labels.slice(0,10).reverse());
         CreateBubble(sample[0].otu_ids,sample[0].sample_values,sample[0].otu_labels);
         Meta(metadata[0]);
+        CreateGauge(metadata[0]);
     });
 
 
